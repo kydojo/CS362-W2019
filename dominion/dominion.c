@@ -400,10 +400,9 @@ int isGameOver(struct gameState *state) {
   //if three supply pile are at 0, the game ends
   j = 0;
   for (i = 0; i < 25; i++)
-    {
-      if (state->supplyCount[i] == 0)
-	{
-	  j++;
+  		{
+      if (state->supplyCount[i] == 0) {
+	  	j++;
 	}
     }
   if ( j >= 3)
@@ -671,7 +670,7 @@ int adventurerEffect( int currentPlayer, struct gameState *state, int drawntreas
 
    while ( drawntreasure < 3 ) {
 		if ( state->deckCount[currentPlayer] < 1 ) {//if the deck is empty we need to shuffle discard and add to deck
-	  	shuffle(currentPlayer, state);
+	  		shuffle(currentPlayer, state);
 		}
 	
 		drawCard( currentPlayer, state );

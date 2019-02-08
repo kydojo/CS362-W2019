@@ -1,0 +1,40 @@
+/* CS362 - Assignment 3 - unittest1.c
+ *	Unit test for isGameOver function
+ *
+ *	Author:		Kyle Johson
+ *	Due:			02/10/2019
+ *
+ *
+ *
+ */
+
+
+
+
+
+
+#include "dominion.h"
+#include "rngs.h"
+#include <string.h>
+#include <stdio.h>
+#include <assert.h>
+
+// Set NOISY to 0 to remove print statements from console output
+#define NOISY 1
+
+int main() {
+
+	if( NOISY ) { printf( "TESTING isGameOver()\n" ); }
+
+	// Instantiate a gameState struct
+	struct gameState game;
+
+	printf( "game.supplyCount[province]: %s", game.supplyCount[province] );
+	printf( "isGameOver( game ):", isGameOver( &game ) );
+	// Test province pile checking functionality
+	if( !game.supplyCount[province] && isGameOver( &game ) ) {
+		printf("PASS");
+	}
+
+	return 0;
+}
