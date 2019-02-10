@@ -5,4 +5,4 @@ testme: testme.c
 	./testme
 
 clean:
-	rm -f *.o testme
+	rm -f *.o *.gc* testme
