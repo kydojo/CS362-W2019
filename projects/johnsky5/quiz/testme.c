@@ -1,3 +1,18 @@
+/* CS362 - Random Tester
+ * 
+ * Author: 	Kyle Johnson
+ * Due:		02/10/2019
+ * Descr:	The function testme() was given. The task was to, first,
+ * 			understand testme(), and then to write the functions
+ * 			inputChar() and inputString() in such a way that they
+ * 			would sufficiently, randomly test testme()'s functionality.
+ * 			The test should complete within 5 minutes (this test 
+ * 			finishes in under 1 second).
+ * 			The randomization within each function was adapted from
+ * 			an online post (the URL is below).
+ *
+ */
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -6,8 +21,8 @@
 // Adapted from: https://stackoverflow.com/questions/19724346/generate-random-characters-in-c
 char inputChar()
 {
-    char ch = "[{( ax)}]"[rand() % 9];
-	 return ch;
+    return "[{( ax)}]"[rand() % 9];
+	 //return ch;
 }
 
 // Adapted from: https://stackoverflow.com/questions/19724346/generate-random-characters-in-c
