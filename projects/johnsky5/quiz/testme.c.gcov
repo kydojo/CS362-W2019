@@ -1,0 +1,84 @@
+        -:    0:Source:testme.c
+        -:    0:Graph:testme.gcno
+        -:    0:Data:testme.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/* CS362 - Random Tester
+        -:    2: * 
+        -:    3: * Author: 	Kyle Johnson
+        -:    4: * Due:		02/10/2019
+        -:    5: * Descr:	The function testme() was given. The task was to, first,
+        -:    6: * 			understand testme(), and then to write the functions
+        -:    7: * 			inputChar() and inputString() in such a way that they
+        -:    8: * 			would sufficiently, randomly test testme()'s functionality.
+        -:    9: * 			The test should complete within 5 minutes (this test 
+        -:   10: * 			finishes in under 1 second).
+        -:   11: * 			The randomization within each function was adapted from
+        -:   12: * 			an online post (the URL is below).
+        -:   13: *
+        -:   14: */
+        -:   15:
+        -:   16:#include<stdio.h>
+        -:   17:#include<string.h>
+        -:   18:#include<stdlib.h>
+        -:   19:#include<time.h>
+        -:   20:
+        -:   21:// Adapted from: https://stackoverflow.com/questions/19724346/generate-random-characters-in-c
+      775:   22:char inputChar()
+        -:   23:{
+      775:   24:    return "[{( ax)}]"[rand() % 9];
+        -:   25:	 //return ch;
+        -:   26:}
+        -:   27:
+        -:   28:// Adapted from: https://stackoverflow.com/questions/19724346/generate-random-characters-in-c
+      775:   29:char *inputString()
+        -:   30:{
+        -:   31:    static char str[6];
+        -:   32:	 int i;
+     4650:   33:	 for( i = 0; i < 5; i++ ) {
+     3875:   34:		str[i] = "rest"[rand() % 5];
+        -:   35:	 }
+      775:   36:	 str[5] = '\0';
+      775:   37:	 return str;
+        -:   38:}
+        -:   39:
+        1:   40:void testme()
+        -:   41:{
+        1:   42:  int tcCount = 0;
+        -:   43:  char *s;
+        -:   44:  char c;
+        1:   45:  int state = 0;
+        -:   46:  while (1)
+        -:   47:  {
+      775:   48:    tcCount++;
+      775:   49:    c = inputChar();
+      775:   50:    s = inputString();
+      775:   51:    printf("Iteration %d: c = %c, s = %s, state = %d\n", tcCount, c, s, state);
+        -:   52:
+      775:   53:    if (c == '[' && state == 0) state = 1;
+      775:   54:    if (c == '(' && state == 1) state = 2;
+      775:   55:    if (c == '{' && state == 2) state = 3;
+      775:   56:    if (c == ' ' && state == 3) state = 4;
+      775:   57:    if (c == 'a' && state == 4) state = 5;
+      775:   58:    if (c == 'x' && state == 5) state = 6;
+      775:   59:    if (c == '}' && state == 6) state = 7;
+      775:   60:    if (c == ')' && state == 7) state = 8;
+      775:   61:    if (c == ']' && state == 8) state = 9;
+      775:   62:    if (s[0] == 'r' && s[1] == 'e'
+       25:   63:       && s[2] == 's' && s[3] == 'e'
+        3:   64:       && s[4] == 't' && s[5] == '\0'
+        1:   65:       && state == 9)
+        -:   66:    {
+        1:   67:      printf("error ");
+        1:   68:      exit(200);
+        -:   69:    }
+      774:   70:  }
+        -:   71:}
+        -:   72:
+        -:   73:
+        1:   74:int main(int argc, char *argv[])
+        -:   75:{
+        1:   76:    srand(time(NULL));
+        1:   77:    testme();
+    #####:   78:    return 0;
+        -:   79:}
