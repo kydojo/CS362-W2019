@@ -12,11 +12,12 @@
 #include "rngs.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 
 // Set TESTING to 0 to remove print statements from console output
 #define TESTING 1
-#define NUM_TESTS 1000
+#define NUM_TESTS 10000
 
 // Helper function to return a random number with the range of the two arguments
 int myRand( int low, int high ) {
@@ -34,8 +35,9 @@ int main() {
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall };
 	struct gameState origState;
 	struct gameState newState;
+	int passCount = 0, failCount = 0;
 
-	if( TESTING ) { printf( "TESTING CARD: adventurer\n" ); }
+	//if( TESTING ) { printf( "TESTING CARD: adventurer\n" ); }
 
 
 	// Iterate NUM_TESTS times
@@ -45,7 +47,7 @@ int main() {
 		numPlayers = myRand( 2, MAX_PLAYERS );
 
 		// Initialize the game
-		initializeGame( numPlayer, k, seed, &newState );
+		initializeGame( numPlayers, k, seed, &newState );
 		
 		// Iterate over all players
 		for( j = 0; j < numPlayers; j++ ) {
@@ -59,23 +61,27 @@ int main() {
 
 			// *** Test that hand count increases by 2 ***
 			if( TESTING ) { 
-				printf( "\t\tPlayer Gains 2 Cards" );
+				//printf( "\t\tPlayer Gains 2 Cards" );
 				if( newState.handCount[p1] == origState.handCount[p1] + 2 ) {
-					printf("\t\tPASS\n");
+					//printf("\t\tPASS\n");
+					passCount++;
 				}
 				else {
-					printf("\t\tFAIL\n");		// expected to fail because I introduced this bug in Assignment 2
+					//printf("\t\tFAIL\n");		// expected to fail because I introduced this bug in Assignment 2
+					failCount++;
 				}
 			}
 
 			// *** Test that deck count decreases by 2 ***
 			if( TESTING ) { 
-				printf( "\t\tDeck Loses 2 Cards" );
+				//printf( "\t\tDeck Loses 2 Cards" );
 				if( newState.handCount[p1] == origState.handCount[p1] - 2 ) {
-					printf("\t\tPASS\n");
+					//printf("\t\tPASS\n");
+					passCount++;
 				}
 				else {
-					printf("\t\tFAIL\n");		// expected to fail because I introduced this bug in Assignment 2
+					//printf("\t\tFAIL\n");		// expected to fail because I introduced this bug in Assignment 2
+					failCount++;
 				}
 			}
 
@@ -84,19 +90,26 @@ int main() {
 			cardDrawn2 = newState.hand[p1][newState.handCount[p1]-2];
 
 			if( TESTING ) {
-				printf( "\t\tTreasure Cards Gained" );
+				//printf( "\t\tTreasure Cards Gained" );
 				if( ( cardDrawn1 == copper || cardDrawn1 == silver ||  cardDrawn1 == gold ) &&
 					 ( cardDrawn2 == copper || cardDrawn2 == silver ||  cardDrawn2 == gold ) ) {	
-					printf("\t\tPASS\n");
+					//printf("\t\tPASS\n");
+					passCount++;
 				}
 				else {
-					printf("\t\tFAIL\n");		
+					//printf("\t\tFAIL\n");		
+					failCount++;
 				}
 			}
 
 
 		}
 	}	
-		
+	
+	printf("Iterations:\t\t%d\n", NUM_TESTS);
+	printf("Tests passed:\t%d\n", passCount);
+	printf("Tests failed:\t%d\n\n", failCount);
+	printf("NOTE: Tests expected to fail, as bug was introduced\nto this card implementation in Assignment 2.\n\n");
+
 	return 0;
 }
