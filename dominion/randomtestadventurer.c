@@ -2,10 +2,7 @@
  *	Random testing of the adventurer card implementation
  *
  *	Author:		Kyle Johson
- *	Due:			02/10/2019
- *
- *
- *
+ *	Due:			02/27/2019
  */
 
 #include "dominion.h"

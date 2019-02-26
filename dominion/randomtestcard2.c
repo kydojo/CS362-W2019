@@ -1,11 +1,8 @@
-/* CS362 - Assignment 3 - randomtestcard2.c
+/* CS362 - Assignment 4 - randomtestcard2.c
  *	Random testing of the village card implementation
  *
  *	Author:		Kyle Johson
- *	Due:			02/10/2019
- *
- *
- *
+ *	Due:			02/27/2019
  */
 
 #include "dominion.h"
@@ -30,8 +27,8 @@ int main() {
 	int r, i, j;
 	int passCount = 0, failCount = 0;
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall };
-	struct gameState G;
-
+	struct gameState origState;
+	struct gameState newState;
 	//if( TESTING ) { printf( "TESTING CARD: village\n" ); }
 
 	for( i = 0; i < NUM_TESTS; i++ ) {
@@ -40,12 +37,66 @@ int main() {
 		numPlayers = myRand( 2, MAX_PLAYERS );
 		
 		// Initialize the game
-		initializeGame( numPlayers, k, seed, &G );
+		initializeGame( numPlayers, k, seed, &newState );
 
 		// Iterate over all players
 		for( j = 0; j < numPlayers; j++ ) {
 		
 			// Set player's turn
-			G.whoseTurn = j;
+			newState.whoseTurn = j;
+			
+			// Store a copy of the game state
+			memcpy( &origState, &newState, sizeof( struct gameState ) );
+	
+			// Call cardEffect on village
+			cardEffect( village, 0, 0, 0, &newState, 0, 0 );
 
+			// *** Test that hand count increases by 1 ***
+			if( TESTING ) { 
+				//printf( "\t\tPlayer Gains 1 Card" );
+				if( newState.handCount[j] == origState.handCount[j] + 1 ) {
+					//printf("\t\tPASS\n");
+					passCount++;
+				}
+				else {
+					//printf("\t\tFAIL\n");		// expected to fail because I introduced this bug in Assignment 2
+					failCount++;
+				}
+			}
+	
+			// *** Test that deck count decreases by 1 ***
+			if( TESTING ) { 
+				//printf( "\t\tDeck Loses 1 Card" );
+				if( newState.deckCount[j] == origState.deckCount[j] - 1 ) {
+					//printf("\t\tPASS\n");
+					passCount++;
+				}
+				else {
+					//printf("\t\tFAIL\n");		// expected to fail because I introduced this bug in Assignment 2
+					failCount++;
+				}
+			}
+
+			// *** Test that the player's actions increase by 2 ***
+			if( TESTING ) { 
+				//printf( "\t\tPlayer Gains 2 Actions" );
+				if( newState.numActions == origState.numActions + 2 ) {
+					//printf("\t\tPASS\n");
+					passCount++;
+				}
+				else {
+					//printf("\t\tFAIL\n");		// expected to fail because I introduced this bug in Assignment 2
+					failCount++;
+				}
+			}
+		}
+	}
+
+	printf("Iterations:\t\t%d\n", NUM_TESTS);
+	printf("Tests passed:\t%d\n", passCount);
+	printf("Tests failed:\t%d\n\n", failCount);
+	printf("NOTE: Tests expected to fail, as bug was introduced\nto this card implementation in Assignment 2.\n\n");
+	
+	return 0;
+}
 

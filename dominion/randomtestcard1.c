@@ -1,11 +1,8 @@
-/* CS362 - Assignment 3 - randomtestcard1.c
+/* CS362 - Assignment 4 - randomtestcard1.c
  *	Random testing of the smithy card implementation
  *
  *	Author:		Kyle Johson
- *	Due:			02/10/2019
- *
- *
- *
+ *	Due:			02/27/2019
  */
 
 #include "dominion.h"

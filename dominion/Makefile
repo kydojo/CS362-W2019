@@ -50,8 +50,8 @@ randomtest: randomtestadventurer.c randomtestcard1.c randomtestcard2.c dominion.
 	./randomtestcard1 >> randomtestcard1.out
 	gcov -b -f dominion.c >> randomtestcard1.out
 
-#	echo -e "\nDominion Random Test Suite Results for Village Card:\n" > randomtestcard2.out
-#	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
-#	./randomtestcard2 >> randomtestcard2.out
-#	gcov -b -f dominion.c >> randomtestcard2.out
+	echo -e "\nDominion Random Test Suite Results for Village Card:\n" > randomtestcard2.out
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+	./randomtestcard2 >> randomtestcard2.out
+	gcov -b -f dominion.c >> randomtestcard2.out
 
