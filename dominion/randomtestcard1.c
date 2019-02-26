@@ -27,7 +27,8 @@ int main() {
 	
 	int seed = 1000;
 	int numPlayers = 2;
-	int r, i;
+	int r, i, j;
+	int passCount = 0, failCount = 0;
 	int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall };
 	struct gameState G;
 
@@ -35,24 +36,43 @@ int main() {
 
 	for( i = 0; i < NUM_TESTS; i++ ) {
 
+		// Get a random number of players between 2 and MAX_PLAYERS
+		numPlayers = myRand( 2, MAX_PLAYERS );
+		
+		// Initialize the game
 		initializeGame( numPlayers, k, seed, &G );
 
-		// Test that hand count increases by 3 when smithy is played
-	
-		// Set player's turn to player 1
-		//G.whoseTurn = 0;
+		// Iterate over all players
+		for( j = 0; j < numPlayers; j++ ) {
+		
+			// Set player's turn
+			G.whoseTurn = j;
 
-		// Set the player's hand size to 1 card
-		G.handCount[0] = 1;
+			// Set the player's hand size to 1 card
+			G.handCount[0] = 1;
 
-		// Call cardEffect on smithy
-		cardEffect( smithy, 0, 0, 0, &G, 4, 0 );
+			// Call cardEffect on smithy
+			cardEffect( smithy, 0, 0, 0, &G, 4, 0 );
 
-		//printf( "Hand Size: %d\n", numHandCards( &G ) );
-		if( TESTING ) { 
-			printf( "\t\t+3 Cards" );
-			if( numHandCards( &G ) == 3 ) {
-				printf("\t\t\tPASS\n");
+			//printf( "Hand Size: %d\n", numHandCards( &G ) );
+			if( TESTING ) { 
+				//printf( "\t\t+3 Cards" );
+				if( numHandCards( &G ) == 3 ) {
+					//printf("\t\t\tPASS\n");
+					passCount++;
+				}
+				else {
+					//printf("\t\t\tFAIL\n");
+					failCount++;
+				}
 			}
-			else {
-				printf("\t\t\tFAIL\n");
+		}
+	}
+
+	printf("Iterations:\t\t%d\n", NUM_TESTS);
+	printf("Tests passed:\t%d\n", passCount);
+	printf("Tests failed:\t%d\n\n", failCount);
+	printf("NOTE: Tests expected to fail, as bug was introduced\nto this card implementation in Assignment 2.\n\n");
+
+	return 0;
+}
