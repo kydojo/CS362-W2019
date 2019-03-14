@@ -1,0 +1,67 @@
+
+Dominion Test Suite Results:
+
+unittest1.c:
+TESTING FUNCTION: isGameOver()
+	Province Pile Checking:
+		Province Pile Empty		PASS
+		Province Pile Not Empty		PASS
+
+	Supply Pile Checking (Assumes Province Pile Not Empty):
+		Supply Piles Not Empty		PASS
+		All Supply Piles Empty		PASS
+		One Supply Pile Empty		PASS
+		Two Supply Piles Empty		PASS
+		Three Supply Piles Empty	PASS
+
+unittest2.c:
+TESTING FUNCTION: numHandCards()
+		Hand Count = 0			PASS
+		Hand Count = 1			PASS
+		Hand Count = 2			PASS
+		Hand Count = 3			PASS
+		Hand Count = 4			PASS
+		Hand Count = 5			PASS
+		Hand Count = 6			PASS
+		Hand Count = 7			PASS
+
+unittest3.c:
+TESTING FUNCTION: supplyCount()
+		Supply Count: Adventurer	PASS
+		Supply Count: Council Room	PASS
+		Supply Count: Feast		PASS
+		Supply Count: Gardens		PASS
+		Supply Count: Mine		PASS
+		Supply Count: Remodel		PASS
+		Supply Count: Smithy		PASS
+		Supply Count: Village		PASS
+		Supply Count: Baron		PASS
+		Supply Count: Great Hall	PASS
+
+unittest4.c:
+TESTING FUNCTION: whoseTurn()
+		Player One's Turn		PASS
+		Player Two's Turn		PASS
+
+cardtest1.c:
+TESTING CARD: smithy
+		+3 Cards			FAIL
+
+cardtest2.c:
+TESTING CARD: adventurer
+		Player Gains 2 Cards		FAIL
+		Deck Loses 2 Cards		FAIL
+		Treasure Cards Gained		PASS
+
+cardtest3.c:
+TESTING CARD: village
+		Player Gains 1 Card		PASS
+		Deck Loses 1 Card		FAIL
+		Player Gains 2 Actions		FAIL
+
+cardtest4.c:
+TESTING CARD: great hall
+		Player Gains 1 Card		FAIL
+		Deck Loses 1 Card		PASS
+		Player Gains 1 Actions		PASS
+
